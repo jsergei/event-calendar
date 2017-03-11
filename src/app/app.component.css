@@ -49,8 +49,8 @@
 }
 
 .day-body {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border: 1px solid black;
   text-align: right;
   vertical-align: top;

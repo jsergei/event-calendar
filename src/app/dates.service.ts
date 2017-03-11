@@ -23,19 +23,24 @@ export class DatesService {
     return this.currentMonth;
   }
 
-  setCurrentMonth(month: Date): void {
-    this.currentMonth = month;
+  setPrevMonth(): void {
+    this.currentMonth = this.getPreviousMonth(this.currentMonth);
+  }
+
+  setNextMonth(): void {
+    this.currentMonth = this.getNextMonth(this.currentMonth);
   }
 
   getDaysOfWeek(): string[] {
     return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
 
-  getMonthName(month: Date): string {
-    return this.monthNames[month.getMonth()];
+  getMonthName(): string {
+    return this.monthNames[this.currentMonth.getMonth()] + ' ' + this.currentMonth.getFullYear();
   }
 
-  getDaysOfMonthMatrix(month: Date): IDay[][] {
+  getDaysOfMonthMatrix(): IDay[][] {
+    const month = this.currentMonth;
     const days = this.getDaysOfMonth(month);
     const firstDay = this.getFirstDayInMonth(month);
     const activeDaysFirstRow = 7 - firstDay;
@@ -109,5 +114,9 @@ export class DatesService {
 
   private getPreviousMonth(month: Date): Date {
     return new Date(new Date(month).setMonth(month.getMonth()-1));
+  }
+
+  private getNextMonth(month: Date): Date {
+    return new Date(new Date(month).setMonth(month.getMonth()+1));
   }
 }

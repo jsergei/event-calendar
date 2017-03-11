@@ -1,7 +1,7 @@
 <div class="calendar">
   <div class="calendar-month">
-    <button class="prev"></button>
-    <button class="next"></button>
+    <button class="prev" (click)="setPrev()"></button>
+    <button class="next" (click)="setNext()"></button>
     <span class="month-name">{{monthName}}</span>
   </div>
   <table class="calendar-days">
