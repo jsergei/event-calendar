@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IDay } from './iday';
 
 var module: any;
@@ -11,11 +11,23 @@ var module: any;
 })
 export class DayComponent {
   @Input() data: IDay;
+  @Output() onEditorShown = new EventEmitter();
+
+  @Input() set isBgShown(value: boolean) {
+    if (!value) {
+      this.isEditorShown = false;
+    }
+  }
+
   isEditorShown: boolean;
 
-  showEditor(): void {
+
+  showEditor(event: Event): void {
     if (this.data.isThisMonth) {
-      this.isEditorShown = !this.isEditorShown;
+      this.isEditorShown = true;
+      this.onEditorShown.emit(true);
+    } else {
+      event.stopPropagation();
     }
   }
 }

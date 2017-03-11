@@ -1,20 +1,19 @@
-a {
+.container {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  text-decoration: none;
   background: #F1F1F1;
 }
 
-a.this-month {
+.container.this-month {
   background: white;
+  cursor: pointer;
 }
 
-a.this-month:hover {
+.container.this-month:hover {
   background: yellow;
-  cursor: pointer;
 }
 
 .event {
@@ -28,7 +27,7 @@ a.this-month:hover {
 
 .editor {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   width: 200px;
   height: 100px;
   background: gray;

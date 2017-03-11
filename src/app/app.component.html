@@ -6,19 +6,22 @@
     <span class="month-name">{{monthName}}</span>
   </div>
 
-  <table class="calendar-days">
-    <thead>
-      <tr>
-        <th class="day-header" *ngFor="let dayOfWeek of daysOfWeek">{{dayOfWeek}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let dayRow of dayRows">
-        <td class="day-body" *ngFor="let day of dayRow">
-          <day [data]="day"></day>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="calendar-container">
+    <table class="calendar-days">
+      <thead>
+        <tr>
+          <th class="day-header" *ngFor="let dayOfWeek of daysOfWeek">{{dayOfWeek}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dayRow of dayRows">
+          <td class="day-body" *ngFor="let day of dayRow">
+            <day [data]="day" (onEditorShown)="isBgShown = true" [isBgShown]="isBgShown"></day>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="editor-bg" *ngIf="isBgShown" (click)="isBgShown = false"></div>
+  </div>
 
 </div>

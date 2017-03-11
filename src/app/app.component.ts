@@ -15,15 +15,13 @@ export class AppComponent implements OnInit {
   monthName: string;
   daysOfWeek: string[];
   dayRows: IDay[][];
+  isBgShown: boolean;
 
   constructor(private datesService: DatesService) { }
 
   ngOnInit(): void {
-    let currentMonth = this.datesService.getCurrentMonth();
-
-    this.monthName = this.datesService.getMonthName();
     this.daysOfWeek = this.datesService.getDaysOfWeek();
-    this.dayRows = this.datesService.getDaysOfMonthMatrix();
+    this.refreshMonth();
   }
 
   setPrev(): void {
@@ -39,5 +37,6 @@ export class AppComponent implements OnInit {
   private refreshMonth(): void {
     this.monthName = this.datesService.getMonthName();
     this.dayRows = this.datesService.getDaysOfMonthMatrix();
+    this.isBgShown = false;
   }
 }
