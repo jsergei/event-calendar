@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatesService } from './dates.service';
-import { IDay } from './day';
+import { IDay } from './iday';
 
 var module: any;
 

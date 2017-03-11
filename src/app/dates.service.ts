@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IDay } from './day';
+import { IDay } from './iday';
 
 @Injectable()
 export class DatesService {

@@ -54,23 +54,6 @@
   border: 1px solid black;
   text-align: right;
   vertical-align: top;
-  background: gray;
-}
-
-.day-body.this-month {
-  background: white;
-}
-
-.day-body.this-month:hover {
-  background: yellow;
-  cursor: pointer;
-}
-
-.day-event {
-  background: blue;
-  color: white;
-  margin: 0.1em;
-  padding: 0.1em;
-  text-align: left;
-  border-radius: 0.1em;
+  position: relative;
+  padding: 0;
 }

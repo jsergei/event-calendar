@@ -1,9 +1,11 @@
 <div class="calendar">
+
   <div class="calendar-month">
     <button class="prev" (click)="setPrev()"></button>
     <button class="next" (click)="setNext()"></button>
     <span class="month-name">{{monthName}}</span>
   </div>
+
   <table class="calendar-days">
     <thead>
       <tr>
@@ -12,11 +14,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let dayRow of dayRows">
-        <td [class.this-month]="day.isThisMonth" class="day-body" *ngFor="let day of dayRow">
-          <div class="day-number">{{day.dayNumber}}</div>
-          <div class="day-event" *ngFor="let event of day.events">{{event}}</div>
+        <td class="day-body" *ngFor="let day of dayRow">
+          <day [data]="day"></day>
         </td>
       </tr>
     </tbody>
   </table>
+
 </div>

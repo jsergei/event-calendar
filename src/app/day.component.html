@@ -1,0 +1,9 @@
+<a
+[class.this-month]="data.isThisMonth"
+(click)="showEditor()">
+  <div class="number">{{data.dayNumber}}</div>
+  <div class="event" *ngFor="let event of data.events">{{event}}</div>
+  <div class="editor" *ngIf="isEditorShown">
+    Editor
+  </div>
+</a>
