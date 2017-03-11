@@ -23,10 +23,6 @@ export class AppComponent implements OnInit {
 
     this.monthName = this.datesService.getMonthName(currentMonth);
     this.daysOfWeek = this.datesService.getDaysOfWeek();
-    this.setDayRows(this.datesService.getDaysOfMonth(currentMonth));
-  }
-
-  private setDayRows(days: IDay[]): void {
-
+    this.dayRows = this.datesService.getDaysOfMonthMatrix(currentMonth);
   }
 }

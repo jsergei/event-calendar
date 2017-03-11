@@ -1,4 +1,76 @@
-.header {
-  font-size: 12px;
-  color: green;
+.calendar {
+  float: left;
+}
+
+.calendar-month {
+  text-align: center;
+  overflow: hidden;
+  background: #F5F6F7;
+}
+
+.prev {
+  float: left;
+  margin-left: 1em;
+}
+
+.next {
+  float: right;
+  margin-right: 1em;
+}
+
+.prev, .next {
+  margin-top: 1em;
+  width: 2em;
+  height: 2em;
+}
+
+.prev:before {
+  content: '<';
+  width: 20px;
+  height: 20px;
+}
+
+.next:after {
+  content: '>';
+}
+
+.month-name {
+  font-size: 3em;
+}
+
+.calendar-days {
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.day-header {
+  height: 30px;
+  font-weight: bold;
+}
+
+.day-body {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  text-align: right;
+  vertical-align: top;
+  background: gray;
+}
+
+.day-body.this-month {
+  background: white;
+}
+
+.day-body.this-month:hover {
+  background: yellow;
+  cursor: pointer;
+}
+
+.day-event {
+  background: blue;
+  color: white;
+  margin: 0.1em;
+  padding: 0.1em;
+  text-align: left;
+  border-radius: 0.1em;
 }

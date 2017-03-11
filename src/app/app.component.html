@@ -1,19 +1,22 @@
-<div class="header">
-  <div class="prev"></div>
-  <div class="next"></div>
-  <span class="month-name">{{monthName}}</span>
+<div class="calendar">
+  <div class="calendar-month">
+    <button class="prev"></button>
+    <button class="next"></button>
+    <span class="month-name">{{monthName}}</span>
+  </div>
+  <table class="calendar-days">
+    <thead>
+      <tr>
+        <th class="day-header" *ngFor="let dayOfWeek of daysOfWeek">{{dayOfWeek}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dayRow of dayRows">
+        <td [class.this-month]="day.isThisMonth" class="day-body" *ngFor="let day of dayRow">
+          <div class="day-number">{{day.dayNumber}}</div>
+          <div class="day-event" *ngFor="let event of day.events">{{event}}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-<table>
-  <thead>
-    <tr>
-      <th *ngFor="let dayOfWeek of daysOfWeek">{{dayOfWeek}}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let dayRow of dayRows">
-      <td *ngFor="let day of dayRow">
-        {{day.dayNumber}}
-      </td>
-    </tr>
-  </tbody>
-</table>
