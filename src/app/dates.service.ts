@@ -5,46 +5,14 @@ import { IDay } from './iday';
 
 @Injectable()
 export class DatesService {
-  private currentMonth = new Date(2017, 5, 1);
-  private monthNames =[
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
 
   constructor(private eventRepo: EventRepoService) {}
-
-  getCurrentMonth(): Date {
-    return this.currentMonth;
-  }
-
-  setPrevMonth(): void {
-    this.currentMonth = this.getPreviousMonth(this.currentMonth);
-  }
-
-  setNextMonth(): void {
-    this.currentMonth = this.getNextMonth(this.currentMonth);
-  }
 
   getDaysOfWeek(): string[] {
     return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
 
-  getMonthName(): string {
-    return this.monthNames[this.currentMonth.getMonth()] + ' ' + this.currentMonth.getFullYear();
-  }
-
-  getDaysOfMonthMatrix(): IDay[][] {
-    const month = this.currentMonth;
+  getDaysOfMonthMatrix(month: Date): IDay[][] {
     const days = this.getDaysOfMonth(month);
     const firstDay = this.getFirstDayInMonth(month);
     const activeDaysFirstRow = 7 - firstDay;
