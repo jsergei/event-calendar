@@ -1,26 +1,39 @@
-import { Injectable } from '@angular/core';
-
-import { EventRepoService } from './eventRepo.service';
 import { IDay } from './iday';
 
-@Injectable()
-export class DatesService {
+export class MonthUtils {
 
-  constructor(private eventRepo: EventRepoService) {}
+  constructor(private month: Date) {}
 
-  getDaysOfWeek(): string[] {
+  static getDaysOfWeek(): string[] {
     return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
 
-  getDaysOfMonthMatrix(month: Date): IDay[][] {
-    const days = this.getDaysOfMonth(month);
-    const firstDay = this.getFirstDayInMonth(month);
+  static getFirstDayInMonth(month: Date): number {
+    const firstDay = new Date(month.getFullYear(), month.getMonth(), 1).getDay();
+    return firstDay === 0 ? 6 : firstDay - 1;
+  }
+
+  static getNumDaysInMonth(month: Date): number {
+    return new Date(month.getFullYear(), month.getMonth()+1, 0).getDate();
+  }
+
+  static getPreviousMonth(month: Date): Date {
+    return new Date(new Date(month).setMonth(month.getMonth()-1));
+  }
+
+  static getNextMonth(month: Date): Date {
+    return new Date(new Date(month).setMonth(month.getMonth()+1));
+  }
+
+  static getDaysOfMonthMatrix(month: Date, events: {[propName: string]: string[]}): IDay[][] {
+    const days = MonthUtils.getDaysOfMonthWithEvents(month, events);
+    const firstDay = MonthUtils.getFirstDayInMonth(month);
     const activeDaysFirstRow = 7 - firstDay;
 
     let firstRow = days.slice(0, activeDaysFirstRow);
 
     if (firstRow.length < 7) {
-      const prevDaysNum = this.getNumDaysInMonth(this.getPreviousMonth(month));
+      const prevDaysNum = MonthUtils.getNumDaysInMonth(MonthUtils.getPreviousMonth(month));
       let prevDays = new Array<IDay>();
       for (let i = 0; i < firstDay; i++) {
         prevDays.push({
@@ -60,8 +73,8 @@ export class DatesService {
     return rows;
   }
 
-  private getDaysOfMonth(month: Date): IDay[] {
-    const daysInMonth = this.getNumDaysInMonth(month);
+  private static getDaysOfMonthWithEvents(month: Date, events: {[propName: string]: string[]}): IDay[] {
+    const daysInMonth = MonthUtils.getNumDaysInMonth(month);
     const days = new Array<IDay>(daysInMonth);
     for (let i = 1; i <= daysInMonth; i++) {
       days[i-1] = {
@@ -71,29 +84,11 @@ export class DatesService {
       };
     }
 
-    const events = this.eventRepo.getEventsOfMonth(month);
     for (let eventKey of Object.keys(events)) {
       let day = days.find(d => d.dayNumber === +eventKey);
       day.events = events[eventKey];
     }
 
     return days;
-  }
-
-  private getFirstDayInMonth(month: Date): number {
-    const firstDay = new Date(month.getFullYear(), month.getMonth(), 1).getDay();
-    return firstDay === 0 ? 6 : firstDay - 1;
-  }
-
-  private getNumDaysInMonth(month: Date): number {
-    return new Date(month.getFullYear(), month.getMonth()+1, 0).getDate();
-  }
-
-  private getPreviousMonth(month: Date): Date {
-    return new Date(new Date(month).setMonth(month.getMonth()-1));
-  }
-
-  private getNextMonth(month: Date): Date {
-    return new Date(new Date(month).setMonth(month.getMonth()+1));
   }
 }

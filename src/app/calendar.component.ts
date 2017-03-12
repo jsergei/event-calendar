@@ -1,8 +1,8 @@
 import { Component, OnChanges, OnInit, Input, SimpleChange } from '@angular/core';
-import { DatesService } from './dates.service';
 import { EventRepoService } from './eventRepo.service';
 import { StorageService } from './storage.service';
 import { IDay } from './iday';
+import { MonthUtils } from './month-utils';
 
 var module: any;
 
@@ -11,7 +11,7 @@ var module: any;
   moduleId: module.id,
   templateUrl: './calendar.component.html',
   styleUrls: [ './calendar.component.css'],
-  providers: [DatesService, EventRepoService, StorageService]
+  providers: [EventRepoService, StorageService]
 })
 export class CalendarComponent implements OnChanges, OnInit {
   @Input() month: Date;
@@ -22,18 +22,18 @@ export class CalendarComponent implements OnChanges, OnInit {
   isBgShown: boolean;
 
   constructor(
-    private datesService: DatesService,
     private eventRepo: EventRepoService) { }
 
   ngOnInit() {
-    this.daysOfWeek = this.datesService.getDaysOfWeek();
+    this.daysOfWeek = MonthUtils.getDaysOfWeek();
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
     if (changes.hasOwnProperty('month')) {
       const currentMonth = changes.month.currentValue;
 
-      this.dayRows = this.datesService.getDaysOfMonthMatrix(currentMonth);
+      let events = this.eventRepo.getEventsOfMonth(currentMonth);
+      this.dayRows = MonthUtils.getDaysOfMonthMatrix(currentMonth, events);
       this.isBgShown = false;
     }
   }

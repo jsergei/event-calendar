@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router }   from '@angular/router';
+import { MonthUtils } from './month-utils';
 
 var module: any;
 
@@ -15,20 +16,12 @@ export class MonthSwitcherComponent {
   constructor(private router: Router) {}
 
   setPrev(): void {
-    var prevMonth = this.getPreviousMonth(this.month);
+    var prevMonth = MonthUtils.getPreviousMonth(this.month);
     this.router.navigate(['/date', prevMonth.getFullYear(), prevMonth.getMonth()+1]);
   }
 
   setNext(): void {
-    var nextMonth = this.getNextMonth(this.month);
+    var nextMonth = MonthUtils.getNextMonth(this.month);
     this.router.navigate(['/date', nextMonth.getFullYear(), nextMonth.getMonth()+1]);
-  }
-
-  private getPreviousMonth(month: Date): Date {
-    return new Date(new Date(month).setMonth(month.getMonth()-1));
-  }
-
-  private getNextMonth(month: Date): Date {
-    return new Date(new Date(month).setMonth(month.getMonth()+1));
   }
 }
