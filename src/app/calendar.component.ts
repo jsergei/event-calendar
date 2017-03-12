@@ -30,7 +30,7 @@ export class CalendarComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
     if (changes.hasOwnProperty('month')) {
-      const currentMonth = changes.month.currentValue;
+      const currentMonth = changes['month'].currentValue;
 
       let events = this.eventRepo.getEventsOfMonth(currentMonth);
       this.dayRows = MonthUtils.getDaysOfMonthMatrix(currentMonth, events);
