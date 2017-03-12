@@ -10,7 +10,7 @@ export class EventRepoService {
   getEventsOfMonth(month: Date): {[propName: string]: string[]} {
     const path = this.getMonthPath(month);
     const days = this.storage.readObject<{[propName: string]: string[]}>(path);
-    return typeof days === "object" ? days : {};
+    return days ? days : {};
   }
 
   addDayEvent(month: Date, dayNumber: number, event: string): void {

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+
+import { EventRepoService } from './eventRepo.service';
 import { IDay } from './iday';
 
 @Injectable()
@@ -18,6 +20,8 @@ export class DatesService {
     'November',
     'December'
   ];
+
+  constructor(private eventRepo: EventRepoService) {}
 
   getCurrentMonth(): Date {
     return this.currentMonth;
@@ -98,8 +102,13 @@ export class DatesService {
         events: null
       };
     }
-    days[10].events = ['walk the dog', 'get to work'];
-    days[15].events = ['listen to music'];
+
+    const events = this.eventRepo.getEventsOfMonth(month);
+    for (let eventKey of Object.keys(events)) {
+      let day = days.find(d => d.dayNumber === +eventKey);
+      day.events = events[eventKey];
+    }
+
     return days;
   }
 

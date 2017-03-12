@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatesService } from './dates.service';
+import { EventRepoService } from './eventRepo.service';
+import { StorageService } from './storage.service';
 import { IDay } from './iday';
 
 var module: any;
@@ -9,7 +11,7 @@ var module: any;
   moduleId: module.id,
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css'],
-  providers: [DatesService]
+  providers: [DatesService, EventRepoService, StorageService]
 })
 export class AppComponent implements OnInit {
   monthName: string;
@@ -17,7 +19,9 @@ export class AppComponent implements OnInit {
   dayRows: IDay[][];
   isBgShown: boolean;
 
-  constructor(private datesService: DatesService) { }
+  constructor(
+    private datesService: DatesService,
+    private eventRepo: EventRepoService) { }
 
   ngOnInit(): void {
     this.daysOfWeek = this.datesService.getDaysOfWeek();
@@ -39,9 +43,13 @@ export class AppComponent implements OnInit {
       res ? res : row.find(d => d.isThisMonth && d.dayNumber === day)
       , undefined);
 
-    foundDay.events = Array.isArray(foundDay.events)
-      ? [...foundDay.events, eventText]
-      : [eventText];
+      if (Array.isArray(foundDay.events)) {
+        foundDay.events.push(eventText);
+      } else {
+        foundDay.events = [eventText];
+      }
+
+      this.eventRepo.addDayEvent(this.datesService.getCurrentMonth(), day, eventText);
   }
 
   private refreshMonth(): void {
