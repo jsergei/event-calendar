@@ -13,6 +13,7 @@ export class DayComponent {
   @Input() data: IDay;
   @Output() onEditorShown = new EventEmitter();
   @Output() onEventAdded = new EventEmitter();
+  @Output() onEventDeleted = new EventEmitter();
 
   isEditorShown: boolean;
   @Input() set isBgShown(value: boolean) {
@@ -37,5 +38,9 @@ export class DayComponent {
       this.onEventAdded.emit(textarea.value);
       textarea.value = '';
     }
+  }
+
+  deleteEvent(eventText: string): void {
+    this.onEventDeleted.emit(eventText);
   }
 }

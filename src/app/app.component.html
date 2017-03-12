@@ -19,6 +19,7 @@
             <day [data]="day"
             (onEditorShown)="isBgShown = true"
             (onEventAdded)="addEvent($event, day.dayNumber)"
+            (onEventDeleted)="deleteEvent($event, day.dayNumber)"
             [isBgShown]="isBgShown"></day>
           </td>
         </tr>

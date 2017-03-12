@@ -38,18 +38,34 @@ export class AppComponent implements OnInit {
     this.refreshMonth();
   }
 
-  addEvent(eventText: string, day: number): void {
-    let foundDay: IDay = this.dayRows.reduce((res, row) =>
-      res ? res : row.find(d => d.isThisMonth && d.dayNumber === day)
+  addEvent(eventText: string, dayNumber: number): void {
+    let day = this.getDayByNumber(dayNumber);
+
+    if (Array.isArray(day.events)) {
+      day.events.push(eventText);
+    } else {
+      day.events = [eventText];
+    }
+
+    this.eventRepo.addDayEvent(this.datesService.getCurrentMonth(), dayNumber, eventText);
+  }
+
+  deleteEvent(eventText: string, dayNumber: number): void {
+    let day = this.getDayByNumber(dayNumber);
+
+    if (Array.isArray(day.events)) {
+      day.events.splice(day.events.indexOf(eventText), 1);
+    } else {
+      throw new Error(`There is no event "${eventText}" for day ${dayNumber}`);
+    }
+
+    this.eventRepo.removeDayEvent(this.datesService.getCurrentMonth(), dayNumber, eventText);
+  }
+
+  private getDayByNumber(dayNumber: number): IDay {
+    return this.dayRows.reduce((res, row) =>
+      res ? res : row.find(d => d.isThisMonth && d.dayNumber === dayNumber)
       , undefined);
-
-      if (Array.isArray(foundDay.events)) {
-        foundDay.events.push(eventText);
-      } else {
-        foundDay.events = [eventText];
-      }
-
-      this.eventRepo.addDayEvent(this.datesService.getCurrentMonth(), day, eventText);
   }
 
   private refreshMonth(): void {

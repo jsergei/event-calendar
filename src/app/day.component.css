@@ -25,6 +25,17 @@
   border-radius: 0.2rem;
 }
 
+.event-delete {
+  float: right;
+  color: white;
+  text-transform: uppercase;
+}
+
+.event-delete:hover {
+  cursor: default;
+  background: orange;
+}
+
 .event-input {
   font-size: 1rem;
   width: 15rem;

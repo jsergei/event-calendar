@@ -1,9 +1,13 @@
 <div class="editor" *ngIf="isEditorShown">
-  <div class="event" *ngFor="let event of data.events">{{event}}</div>
+  <div class="event" *ngFor="let event of data.events">
+    {{event}}
+    <div class="event-delete" (click)="deleteEvent(event)">x</div>
+  </div>
   <textarea #textarea class="event-input"
   [placeholder]="inputPlaceholder"
   (keyup)="addEvent($event, textarea)"></textarea>
 </div>
+
 <div class="abs-full-cover container"
 [class.this-month]="data.isThisMonth"
 (click)="showEditor($event)">
