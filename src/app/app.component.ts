@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   isBgShown: boolean;
 
   constructor(private datesService: DatesService) { }
-
+  
   ngOnInit(): void {
     this.daysOfWeek = this.datesService.getDaysOfWeek();
     this.refreshMonth();

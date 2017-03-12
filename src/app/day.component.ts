@@ -13,13 +13,14 @@ export class DayComponent {
   @Input() data: IDay;
   @Output() onEditorShown = new EventEmitter();
 
+  isEditorShown: boolean;
   @Input() set isBgShown(value: boolean) {
     if (!value) {
       this.isEditorShown = false;
     }
   }
 
-  isEditorShown: boolean;
+  inputPlaceholder = "Ctrl + enter - add event";
 
 
   showEditor(event: Event): void {
