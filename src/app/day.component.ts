@@ -12,6 +12,7 @@ var module: any;
 export class DayComponent {
   @Input() data: IDay;
   @Output() onEditorShown = new EventEmitter();
+  @Output() onEventAdded = new EventEmitter();
 
   isEditorShown: boolean;
   @Input() set isBgShown(value: boolean) {
@@ -22,13 +23,19 @@ export class DayComponent {
 
   inputPlaceholder = "Ctrl + enter - add event";
 
-
   showEditor(event: Event): void {
     if (this.data.isThisMonth) {
       this.isEditorShown = true;
       this.onEditorShown.emit(true);
     } else {
       event.stopPropagation();
+    }
+  }
+
+  addEvent(event: KeyboardEvent, textarea: any): void {
+    if (event.keyCode === 13 && event.ctrlKey) {
+      this.onEventAdded.emit(textarea.value);
+      textarea.value = '';
     }
   }
 }

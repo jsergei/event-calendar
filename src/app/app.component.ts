@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   isBgShown: boolean;
 
   constructor(private datesService: DatesService) { }
-  
+
   ngOnInit(): void {
     this.daysOfWeek = this.datesService.getDaysOfWeek();
     this.refreshMonth();
@@ -32,6 +32,16 @@ export class AppComponent implements OnInit {
   setNext(): void {
     this.datesService.setNextMonth();
     this.refreshMonth();
+  }
+
+  addEvent(eventText: string, day: number): void {
+    let foundDay: IDay = this.dayRows.reduce((res, row) =>
+      res ? res : row.find(d => d.isThisMonth && d.dayNumber === day)
+      , undefined);
+
+    foundDay.events = Array.isArray(foundDay.events)
+      ? [...foundDay.events, eventText]
+      : [eventText];
   }
 
   private refreshMonth(): void {
