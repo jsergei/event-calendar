@@ -1,14 +1,15 @@
-.container {
+.cell {
   background: #F1F1F1;
   text-align: left;
+  overflow-y: auto;
 }
 
-.container.this-month {
+.cell.this-month {
   background: white;
   cursor: pointer;
 }
 
-.container.this-month:hover {
+.cell.this-month:hover {
   background: yellow;
 }
 
@@ -17,7 +18,7 @@
   padding: 0.5rem;
 }
 
-.event {
+.event-text {
   background: blue;
   color: white;
   margin: 0.2rem;

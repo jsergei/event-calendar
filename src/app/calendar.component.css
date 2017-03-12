@@ -1,18 +1,22 @@
-.calendar-days {
+.head-with-body {
+  position: relative;
+}
+
+table {
   table-layout: fixed;
   border-collapse: collapse;
   position: relative;
   width: 100%
 }
 
-.day-header {
+table th {
   height: 3rem;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 1.5rem;
 }
 
-.day-body {
+table td {
   width: 14.28%;
   border: 1px solid black;
   padding: 1px;
@@ -21,14 +25,10 @@
   padding: 0;
 }
 
-.day-body:after {
+table td:after {
   content: '';
   display: block;
   margin-top: 100%;
-}
-
-.calendar-days-container {
-  position: relative;
 }
 
 .editor-bg {

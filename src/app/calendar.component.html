@@ -1,13 +1,13 @@
-<div class="calendar-days-container">
-  <table class="calendar-days">
+<div class="head-with-body">
+  <table>
     <thead>
       <tr>
-        <th class="day-header" *ngFor="let dayOfWeek of daysOfWeek">{{dayOfWeek}}</th>
+        <th *ngFor="let dayOfWeek of daysOfWeek">{{dayOfWeek}}</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let dayRow of dayRows">
-        <td class="day-body" *ngFor="let day of dayRow">
+        <td *ngFor="let day of dayRow">
           <day [data]="day"
           (onEditorShown)="isBgShown = true"
           (onEventAdded)="addEvent($event, day.dayNumber)"
@@ -17,5 +17,8 @@
       </tr>
     </tbody>
   </table>
-  <div class="abs-full-cover editor-bg" *ngIf="isBgShown" (click)="isBgShown = false"></div>
+  <div class="abs-full-cover editor-bg"
+  *ngIf="isBgShown"
+  (click)="isBgShown = false">
+  </div>
 </div>
