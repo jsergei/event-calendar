@@ -34,7 +34,7 @@ export class DayComponent {
   }
 
   addEvent(event: KeyboardEvent, textarea: any): void {
-    if (event.keyCode === 13 && event.ctrlKey) {
+    if (event.keyCode === 13 && event.ctrlKey && textarea.value) {
       this.onEventAdded.emit(textarea.value);
       textarea.value = '';
     }
