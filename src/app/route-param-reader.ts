@@ -1,6 +1,8 @@
 export class RouteParamReader {
   private static currentDate = new Date();
 
+  static getDefaultDate(): Date { return RouteParamReader.currentDate; }
+
   static monthToRouteParams(month: Date): number[]  {
     return [month.getFullYear(), month.getMonth() + 1];
   }

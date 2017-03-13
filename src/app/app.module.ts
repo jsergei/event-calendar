@@ -9,12 +9,23 @@ import { MonthSwitcherComponent }  from './month-switcher.component';
 import { CalendarComponent }  from './calendar.component';
 import { DayComponent }  from './day.component';
 
+import { RouteParamReader } from './route-param-reader';
+
+const defaultRouteParams = RouteParamReader.monthToRouteParams(RouteParamReader.getDefaultDate());
+
 @NgModule({
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: `/date/${new Date().getFullYear()}/${new Date().getMonth()+1}`, pathMatch: 'full' },
-      { path: 'date/:year/:month', component: AppContainerComponent }
+      {
+        path: '',
+        redirectTo: `/date/${defaultRouteParams[0]}/${defaultRouteParams[1]}`,
+        pathMatch: 'full'
+      },
+      {
+        path: 'date/:year/:month',
+        component: AppContainerComponent
+      }
     ])
   ],
   declarations: [
