@@ -35,7 +35,7 @@ export class MonthUtils {
     if (firstRow.length < 7) {
       const prevDaysNum = MonthUtils.getNumDaysInMonth(MonthUtils.getPreviousMonth(month));
       let prevDays = new Array<IDay>();
-      for (let i = 0; i < firstDay; i++) {
+      for (let i = 1; i <= firstDay; i++) {
         prevDays.push({
           dayNumber: prevDaysNum - firstDay + i,
           isThisMonth: false,
