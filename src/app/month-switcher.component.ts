@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router }   from '@angular/router';
 import { MonthUtils } from './month-utils';
+import { RouteParamReader } from './route-param-reader';
 
 var module: any;
 
@@ -17,11 +18,11 @@ export class MonthSwitcherComponent {
 
   setPrev(): void {
     var prevMonth = MonthUtils.getPreviousMonth(this.month);
-    this.router.navigate(['/date', prevMonth.getFullYear(), prevMonth.getMonth()+1]);
+    this.router.navigate(['/date', ...RouteParamReader.monthToRouteParams(prevMonth)]);
   }
 
   setNext(): void {
     var nextMonth = MonthUtils.getNextMonth(this.month);
-    this.router.navigate(['/date', nextMonth.getFullYear(), nextMonth.getMonth()+1]);
+    this.router.navigate(['/date', ...RouteParamReader.monthToRouteParams(nextMonth)]);
   }
 }

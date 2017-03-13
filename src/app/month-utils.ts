@@ -2,11 +2,11 @@ import { IDay } from './iday';
 
 export class MonthUtils {
 
-  constructor(private month: Date) {}
-
   static getDaysOfWeek(): string[] {
     return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
+
+  static daysInWeekNum = 7;
 
   static getFirstDayInMonth(month: Date): number {
     const firstDay = new Date(month.getFullYear(), month.getMonth(), 1).getDay();
@@ -28,11 +28,11 @@ export class MonthUtils {
   static getDaysOfMonthMatrix(month: Date, events: {[propName: string]: string[]}): IDay[][] {
     const days = MonthUtils.getDaysOfMonthWithEvents(month, events);
     const firstDay = MonthUtils.getFirstDayInMonth(month);
-    const activeDaysFirstRow = 7 - firstDay;
+    const activeDaysFirstRow = MonthUtils.daysInWeekNum - firstDay;
 
     let firstRow = days.slice(0, activeDaysFirstRow);
 
-    if (firstRow.length < 7) {
+    if (firstRow.length < MonthUtils.daysInWeekNum) {
       const prevDaysNum = MonthUtils.getNumDaysInMonth(MonthUtils.getPreviousMonth(month));
       let prevDays = new Array<IDay>();
       for (let i = 1; i <= firstDay; i++) {
@@ -47,18 +47,18 @@ export class MonthUtils {
 
     let rows = new Array<IDay[]>();
     rows.push(firstRow);
-    const fullRowsNum = Math.floor((days.length - activeDaysFirstRow) / 7);
+    const fullRowsNum = Math.floor((days.length - activeDaysFirstRow) / MonthUtils.daysInWeekNum);
     for (let i = 0; i < fullRowsNum; i++) {
-      const rowDaysStart = activeDaysFirstRow + i * 7;
-      let fullRow = days.slice(rowDaysStart, rowDaysStart + 7);
+      const rowDaysStart = activeDaysFirstRow + i * MonthUtils.daysInWeekNum;
+      let fullRow = days.slice(rowDaysStart, rowDaysStart + MonthUtils.daysInWeekNum);
       rows.push(fullRow);
     }
 
-    const firstAndMiddleRowsNum = activeDaysFirstRow + 7 * fullRowsNum;
+    const firstAndMiddleRowsNum = activeDaysFirstRow + MonthUtils.daysInWeekNum * fullRowsNum;
     if (firstAndMiddleRowsNum < days.length) {
       let lastRow = days.slice(firstAndMiddleRowsNum);
-      if (lastRow.length < 7) {
-        const inactiveDaysNum = 7 - lastRow.length;
+      if (lastRow.length < MonthUtils.daysInWeekNum) {
+        const inactiveDaysNum = MonthUtils.daysInWeekNum - lastRow.length;
         for (let i = 1; i <= inactiveDaysNum; i++) {
           lastRow.push({
             dayNumber: i,

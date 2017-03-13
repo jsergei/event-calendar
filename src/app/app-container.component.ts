@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
+import { RouteParamReader } from './route-param-reader';
 
 @Component({
   selector: 'app-container',
@@ -18,7 +19,7 @@ export class AppContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.selectedMonth = new Date(+params['year'], params['month']-1, 1);
+      this.selectedMonth = RouteParamReader.routeParmsToMonth(params);
     });
   }
 }
