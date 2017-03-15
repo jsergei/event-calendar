@@ -25,6 +25,10 @@ const defaultRouteParams = RouteParamReader.monthToRouteParams(RouteParamReader.
       {
         path: 'date/:year/:month',
         component: AppContainerComponent
+      },
+      {
+        path: '**',
+        redirectTo: `/date/${defaultRouteParams[0]}/${defaultRouteParams[1]}`,
       }
     ])
   ],
